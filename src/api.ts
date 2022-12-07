@@ -19,15 +19,20 @@ class FrienderApi {
     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
-  static async request(endpoint: string, data = {}, method = "get") {
+  static async request(
+    endpoint: string,
+    headers = {Authorization: `Bearer ${FrienderApi.token}`},
+    data = {},
+    method = "get"
+  ) {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = {
-      Authorization: `Bearer ${FrienderApi.token}`,
-      "Content-Type": "image/jpeg"
-    };
-    
+    // const headers = {
+    //   Authorization: `Bearer ${FrienderApi.token}`,
+    //   "Content-Type": "image/jpeg"
+    // };
+
     const params = method === "get" ? data : {};
 
     try {
@@ -42,7 +47,11 @@ class FrienderApi {
   // Individual API routes
 
   static async uploadPhoto(data: any) {
-    const res = await this.request("images", data, "post");
+    const headers = {
+      Authorization: `Bearer ${FrienderApi.token}`,
+      "Content-Type": "image/jpeg"
+    };
+    const res = await this.request("images", headers, data, "post");
     console.log(res.image);
     return res.image;
   }
