@@ -11,6 +11,7 @@ function AddPhotoForm() {
   console.log("AddPhotoForm", image);
 
   function handleChange(evt: any) {
+    console.log('handleChange');
     const { name, value } = evt.target;
     setImage((prevFormData) => ({
       ...prevFormData,
@@ -19,8 +20,8 @@ function AddPhotoForm() {
   }
 
   async function handleSubmit(evt: any) {
+    console.log("handleSubmit");
     evt.preventDefault();
-
     await FrienderApi.uploadPhoto(image);
   }
 
@@ -32,9 +33,9 @@ function AddPhotoForm() {
     <Form className="AddPhotoForm" onSubmit={handleSubmit}>
       <Form.Group controlId="formFileMultiple" className="mb-3">
         <Form.Label>Image upload</Form.Label>
-        <Form.Control type="file" multiple onChange={handleChange} />
+        <Form.Control name="image" type="file" multiple onChange={handleChange} />
       </Form.Group>
-      <Button>Submit</Button>
+      <Button type="submit">Submit</Button>
     </Form>
   )
 }
