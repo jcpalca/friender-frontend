@@ -49,10 +49,10 @@ class FrienderApi {
   static async uploadPhoto(data: any) {
     const headers = {
       Authorization: `Bearer ${FrienderApi.token}`,
-      "Content-Type": "image/jpeg"
+      "Content-Type": "multipart/form-data"
     };
     const res = await this.request("images", headers, data, "post");
-    console.log(res.image);
+    console.log(res.image, "THIS IS RES!!!!!");
     return res.image;
   }
 
