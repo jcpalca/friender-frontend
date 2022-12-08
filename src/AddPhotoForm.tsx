@@ -4,12 +4,12 @@ import FrienderApi from "./api";
 import { useState } from "react";
 
 function AddPhotoForm() {
-  // const [image, setImage] = useState({
-  //   image: ""
+  // const [images, setImage] = useState({
+  //   images: ""
   // });
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState([]);
 
-  console.log("AddPhotoForm", image);
+  console.log("AddPhotoForm", images);
 
   function handleChange(evt: any) {
     console.log('handleChange');
@@ -18,7 +18,7 @@ function AddPhotoForm() {
     //   ...prevFormData,
     //   [name]: value,
     // }));
-    setImage(evt.target.files[0])
+    setImages(evt.target.files);
   }
 
   async function handleSubmit(evt: any) {
@@ -26,22 +26,27 @@ function AddPhotoForm() {
     evt.preventDefault();
 
     const data = new FormData();
-    data.append('image', image);
-    console.log(data.getAll("image"), "ALL THE DATA");
-    console.log(image, "THIS IS THE IMAGE");
+
+    for (const key in images) {
+      data.append('images[]', images[key]);
+    }
+
+    console.log(data.getAll("images[]"), "ALL THE DATA");
+    console.log(images, "THIS IS THE IMAGE");
 
     // for(let key of data.entries()) {
     //   console.log(key[0], key[1]);
     // }
 
+    //TODO: FIGURE OUT HOW TO ALLOW IMAGES ONLY
     await FrienderApi.uploadPhoto(data);
-    // console.log(image, "THIS IS THE IMAGE IN BODY");
+    // console.log(images, "THIS IS THE IMAGE IN BODY");
     // fetch("http://localhost:3001/images", {
     //   method: "POST",
     //   headers: {
-    //     "Content-Type": "image/jpeg"
+    //     "Content-Type": "images/jpeg"
     //   },
-    //   body: image
+    //   body: images
     // }).then(() => {
     //   console.log("Image uploaded successfully!")
     // }).catch(error => {
@@ -57,7 +62,7 @@ function AddPhotoForm() {
     <Form className="AddPhotoForm" onSubmit={handleSubmit}>
       <Form.Group controlId="formFileMultiple" className="mb-3">
         <Form.Label>Image upload</Form.Label>
-        <Form.Control name="image" type="file" multiple onChange={handleChange} />
+        <Form.Control name="images" type="file" multiple onChange={handleChange} />
       </Form.Group>
       <Button type="submit">Submit</Button>
     </Form>

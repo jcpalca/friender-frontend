@@ -52,8 +52,8 @@ class FrienderApi {
       "Content-Type": "multipart/form-data"
     };
     const res = await this.request("images", headers, data, "post");
-    console.log(res.image, "THIS IS RES!!!!!");
-    return res.image;
+    console.log(res.imageURLs, "THIS IS RES!!!!!");
+    return res.imageURLs;
   }
 
   /** Get list of all companies.
