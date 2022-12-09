@@ -39,7 +39,7 @@ function SignUpFormControl({ signUp }) {
     password: "",
     confirmPassword: "",
     zip: "",
-    hobbies: [],
+    hobbies: [{hobby: ''}],
     interests: [],
   });
 
@@ -66,10 +66,9 @@ function SignUpFormControl({ signUp }) {
   }
 
   /** Handles previous button */
-  function handlePrevious(evt) {
-    evt.preventDefault();
+  function handlePrevious(formData) {
     prevStep();
-    // setFormData(fData => ({...fData, hobbies: hobbiesFormData}))
+    setFormData(fData => ({...fData, ...formData}))
   }
 
   function handleNext(formData) {
