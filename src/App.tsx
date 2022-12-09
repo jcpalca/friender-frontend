@@ -1,12 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import AddPhotoForm from './AddPhotoForm';
+import { BrowserRouter } from 'react-router-dom';
+import NavBar from "./NavBar";
+import RoutesList from "./RoutesList";
 
 function App() {
+  console.log("App");
+
+  function login() {
+    return "";
+  }
+
+  function signUp() {
+    return "";
+  }
+
   return (
     <div className="App">
-      <AddPhotoForm />
+      <BrowserRouter>
+        <NavBar />
+        <RoutesList login={login} signUp={signUp}/>
+      </BrowserRouter>
     </div>
   );
 }
