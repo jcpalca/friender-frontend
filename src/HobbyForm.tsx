@@ -1,4 +1,4 @@
-function HobbyForm() {
+function HobbyForm({prev, next, values}) {
   console.log("HobbyForm");
 
   return (

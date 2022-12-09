@@ -1,68 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Form";
 import MyAlert from "./MyAlert";
-import "./SignUpForm.css";
 
-/**
- * SignUpForm:
- *
- * Props: signUp - function, to be called in parent
- *
- * State: formData - like {
-    email: "",
-    firstName: "",
-    lastName: "",
-    password: "",
-    confirmPassword: "",
-    email: "",
-  }
-          errors - array of Errors
- *
- * App -> Routes -> SignUpForm
- */
-
-function SignUpForm({ signUp }) {
-  console.log("SignUpForm");
-
-  const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    step: 1,
-    email: "",
-    firstName: "",
-    lastName: "",
-    password: "",
-    confirmPassword: "",
-    zip: "",
-    hobbies: [],
-    interests: [],
-  });
-  const [errors, setErrors] = useState([]);
-
-  /** Go back to previous step */
-  function prevStep() {
-    const { step } = formData;
-    setFormData(fData => ({...fData, step: step - 1}));
-  }
-
-  /** Go to next step */
-  function nextStep() {
-    const { step } = formData;
-    setFormData(fData => ({...fData, step: step + 1}));
-  }
-
-  /** Handles previous button */
-  function handlePrevious(evt) {
-    evt.preventDefault();
-    prevStep();
-  }
-
-  function handleNext(evt) {
-    evt.preventDefault();
-    nextStep();
-  }
+function SignUpForm({next, values}) {
+    const [formData, setFormData] = useState(values);
+    const [errors, setErrors] = useState([]);
 
   /**Handles the input change. */
   function handleChange(evt) {
@@ -73,31 +16,16 @@ function SignUpForm({ signUp }) {
     }));
   }
 
-  /**Handle form submission. */
-  async function handleSubmit(evt) {
+  function clickNext(evt) {
     evt.preventDefault();
-
     if (formData.password !== formData.confirmPassword) {
-      return setErrors(["Passwords must match."]);
+        return setErrors(["Passwords must match."]);
     }
-
-    navigate("/signup/hobbies");
-
-    // try {
-    //   // make axios call
-    //   const copy = { ...formData };
-    //   delete copy["confirmPassword"];
-    //   await signUp(copy);
-    //   navigate("/");
-    //   // reroute to main page
-    // } catch (err) {
-    //   // set errors
-    //   setErrors(err);
-    // }
+    next(formData)
   }
 
-  return (
-    <Form className="SignUpForm container" onSubmit={handleSubmit}>
+    return (
+    <Form className="SignUpForm container" >
       <Form.Text as="h1" className="SignUpForm-title mt-3">Sign Up</Form.Text>
       <Form.Group>
         <Form.Label>Email:</Form.Label>
@@ -157,7 +85,7 @@ function SignUpForm({ signUp }) {
         />
       </Form.Group>
       {errors.length > 0 && <MyAlert messages={errors} />}
-      <Button as="button" className="btn btn-primary">
+      <Button as="button" className="btn btn-primary" onClick={clickNext}>
         Next
       </Button>
     </Form>
