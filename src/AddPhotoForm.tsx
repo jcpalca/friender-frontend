@@ -8,8 +8,9 @@ function AddPhotoForm() {
   //   images: ""
   // });
   const [images, setImages] = useState([]);
+  const [imageURLs, setImageURLs] = useState([]);
 
-  console.log("AddPhotoForm", images);
+  console.log("AddPhotoForm", images, "imageURLs", imageURLs);
 
   function handleChange(evt: any) {
     console.log('handleChange');
@@ -39,7 +40,9 @@ function AddPhotoForm() {
     // }
 
     //TODO: FIGURE OUT HOW TO ALLOW IMAGES ONLY
-    await FrienderApi.uploadPhoto(data);
+    const urls = await FrienderApi.uploadPhoto(data);
+    console.log('URLs', urls);
+    setImageURLs(urls);
     // console.log(images, "THIS IS THE IMAGE IN BODY");
     // fetch("http://localhost:3001/images", {
     //   method: "POST",
@@ -59,13 +62,18 @@ function AddPhotoForm() {
   // }
 
   return (
-    <Form className="AddPhotoForm" onSubmit={handleSubmit}>
-      <Form.Group controlId="formFileMultiple" className="mb-3">
-        <Form.Label>Image upload</Form.Label>
-        <Form.Control name="images" type="file" multiple onChange={handleChange} />
-      </Form.Group>
-      <Button type="submit">Submit</Button>
-    </Form>
+    <div className="AddPhotoForm">
+      <Form className="AddPhotoForm" onSubmit={handleSubmit}>
+        <Form.Group controlId="formFileMultiple" className="mb-3">
+          <Form.Label>Image upload</Form.Label>
+          <Form.Control name="images" type="file" multiple onChange={handleChange} />
+        </Form.Group>
+        <Button type="submit">Submit</Button>
+      </Form>
+      <div className="AddPhotoForm-Images">
+        {imageURLs.map(url => <img src={url} alt={url}/>)}
+      </div>
+    </div>
   )
 }
 
