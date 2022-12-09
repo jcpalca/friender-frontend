@@ -44,3 +44,17 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+# TODO
+- Move SignUpFormControl to App level
+- Finish rest of forms
+- Homepage
+- Login/Signup
+- Map
+- Liking/Disliking People
+- Messages
+- Edit Profile
+- Upload Images
+- NavBar
+- We need to build out out api methods

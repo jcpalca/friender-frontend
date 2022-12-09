@@ -43,6 +43,8 @@ function SignUpFormControl({ signUp }) {
     interests: [],
   });
 
+  //TODO: MOVE TO APP LEVEL and use useNavigate to route to different routes rendering different forms
+
   // sign up - {email, firstName, lastName, password, confirmPassword, zip}
   // hobbies - {hobbies}
   // interests - {interests}
