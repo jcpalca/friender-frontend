@@ -3,10 +3,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Form";
 import MyAlert from "./MyAlert";
 
-function HobbyForm({prev, next, values}) {
+function HobbyForm() {
   console.log("HobbyForm");
 
-  const [formData, setFormData] = useState(values);
+  const [formData, setFormData] = useState([]);
 
   function handleChange(i, e) {
     let newFormData = [...formData];

@@ -75,6 +75,12 @@ class FrienderApi {
     return res.token;
   }
 
+  /** Edit profile */
+  static async editUserInfo(id, data) {
+    const res = await this.request(`users/${id}`, data, "patch");
+    return res.user;
+  }
+
   /** Get list of all companies.
    * filters - object, like { nameLike: string }
   */
@@ -97,11 +103,6 @@ class FrienderApi {
 
 
 
-  // /** Edit profile */
-  // static async editProfile(username, data) {
-  //   const res = await this.request(`users/${username}`, data, "patch");
-  //   return res.user;
-  // }
 
 
   // /** Apply to job */

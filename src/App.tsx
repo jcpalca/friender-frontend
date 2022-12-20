@@ -45,6 +45,15 @@ function App() {
     setToken(tokenResult);
   }
 
+  async function updateUserInfo(userInfoData) {
+    console.log("THIS IS UPDATE USER INFO DATA", userInfoData);
+    const userInfo = await FrienderApi.editUserInfo(currUser.id, userInfoData);
+    setCurrUser(u => ({
+      ...u,
+      ...userInfo
+    }));
+
+  }
   function userLogout() {
     console.log("LOGOUT");
     localStorage.removeItem("token");
@@ -65,7 +74,7 @@ function App() {
       <userInfoContext.Provider value={currUser}>
         <BrowserRouter>
           <NavBar userLogout={userLogout}/>
-          <RoutesList login={login} signUp={signUp}/>
+          <RoutesList login={login} signUp={signUp} updateUserInfo={updateUserInfo}/>
         </BrowserRouter>
       </userInfoContext.Provider>
     </div>

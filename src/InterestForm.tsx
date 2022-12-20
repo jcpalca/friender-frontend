@@ -1,4 +1,4 @@
-function InterestForm({prev, next, values}) {
+function InterestForm() {
   console.log("InterestForm");
 
   return (
