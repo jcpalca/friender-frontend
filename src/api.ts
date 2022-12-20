@@ -21,9 +21,9 @@ class FrienderApi {
 
   static async request(
     endpoint: string,
-    headers = {Authorization: `Bearer ${FrienderApi.token}`},
     data = {},
-    method = "get"
+    method = "get",
+    headers = {Authorization: `Bearer ${FrienderApi.token}`},
   ) {
     console.debug("API Call:", endpoint, data, method);
 
@@ -51,14 +51,27 @@ class FrienderApi {
       Authorization: `Bearer ${FrienderApi.token}`,
       "Content-Type": "multipart/form-data"
     };
-    const res = await this.request("images", headers, data, "post");
+    const res = await this.request("images", data, "post", headers);
     console.log(res.imageURLs, "THIS IS RES!!!!!");
     return res.imageURLs;
   }
 
+  /** Sign up */
+  static async signUp(data: any) {
+    console.log("THIS IS API DATA", data);
+    const res = await this.request("auth/register", data, "post");
+    return res.token;
+  }
+
+  /** Get user data */
+  static async getUser(id: number) {
+    const res = await this.request(`users/${id}`);
+    return res.user;
+  }
+
   /** Get list of all companies.
    * filters - object, like { nameLike: string }
-   */
+  */
   // static async getCompanies(filters) {
   //   const res = await this.request("companies", filters);
   //   return res.companies;
@@ -76,11 +89,6 @@ class FrienderApi {
   //   return res.jobs;
   // }
 
-  // /** Sign up */
-  // static async signUp(data) {
-  //   const res = await this.request("auth/register", data, "post");
-  //   return res.token;
-  // }
 
   // /** Login */
   // static async login(data) {
@@ -94,11 +102,6 @@ class FrienderApi {
   //   return res.user;
   // }
 
-  // /** Get user data */
-  // static async getUser(username) {
-  //   const res = await this.request(`users/${username}`);
-  //   return res.user;
-  // }
 
   // /** Apply to job */
   // static async applyToJob(username, id) {

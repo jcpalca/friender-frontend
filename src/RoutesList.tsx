@@ -3,7 +3,7 @@ import Homepage from "./Homepage";
 import Messages from "./Messages";
 import Choose from "./Choose";
 import LoginForm from "./LoginForm";
-import SignUpFormControl from "./SignUpFormControl";
+import SignUpForm from "./SignUpForm";
 import HobbyForm from "./HobbyForm";
 import InterestForm from "./InterestForm";
 
@@ -16,7 +16,9 @@ function RoutesList({ login, signUp }: {login: any, signUp: any}) {
       <Route path="/messages" element={<Messages />} />
       <Route path="/choose" element={<Choose />} />
       <Route path="/login" element={<LoginForm login={login} />} />
-      <Route path="/signup" element={<SignUpFormControl signUp={signUp}/>} />
+      <Route path="/signup" element={<SignUpForm signUp={signUp}/>} />
+      {/* <Route path="/hobby" element={<HobbyForm />} />
+      <Route path="/interest" element={<InterestForm />} /> */}
     </Routes>
   )
 }

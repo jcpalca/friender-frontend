@@ -1,30 +1,55 @@
 import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 import MyAlert from "./MyAlert";
 
-function SignUpForm({next, values}) {
-    const [formData, setFormData] = useState(values);
-    const [errors, setErrors] = useState([]);
+function SignUpForm({signUp}) {
+  const [formData, setFormData] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPassword: "",
+    zip: "",
+  });
+  const [errors, setErrors] = useState([]);
+
+  console.log("SignUpForm", formData, errors);
+
+  const navigate = useNavigate();
 
   /**Handles the input change. */
   function handleChange(evt) {
     const { name, value } = evt.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
   }
 
-  function clickNext(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
         return setErrors(["Passwords must match."]);
     }
-    next(formData)
+
+    try {
+      // make axios call
+      const copy = { ...formData };
+      delete copy["confirmPassword"];
+      await signUp(copy);
+      navigate("/");
+      // reroute to main page
+    } catch (err) {
+      // set errors
+      setErrors(err);
+    }
   }
 
-    return (
+  return (
     <Form className="SignUpForm container" >
       <Form.Text as="h1" className="SignUpForm-title mt-3">Sign Up</Form.Text>
       <Form.Group>
@@ -85,8 +110,8 @@ function SignUpForm({next, values}) {
         />
       </Form.Group>
       {errors.length > 0 && <MyAlert messages={errors} />}
-      <Button as="button" className="btn btn-primary" onClick={clickNext}>
-        Next
+      <Button as="button" className="btn btn-primary" onClick={handleSubmit}>
+        Submit
       </Button>
     </Form>
   );
