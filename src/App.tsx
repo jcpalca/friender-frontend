@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import RoutesList from "./RoutesList";
 import FrienderApi from './api';
 import { useEffect, useState } from 'react';
+import userInfoContext from './userInfoContext';
 
 function App() {
 
@@ -16,10 +17,13 @@ function App() {
   useEffect(() => {
     console.log("USING EFFECT")
     async function getUser() {
+      const payload = jwt_decode(token);
+      console.log("THIS IS THE PAYLOAD: ", payload);
       const { id }:{ id: number } = jwt_decode(token);
       FrienderApi.token = token;
       const userResult = await FrienderApi.getUser(id);
       setCurrUser(userResult);
+      localStorage.setItem("token", token);
     }
     if (token) {
       getUser();
@@ -28,8 +32,11 @@ function App() {
     }
   }, [token]);
 
-  function login() {
-    return "";
+  async function login(loginData) {
+    console.log("THIS IS LOGIN DATA", loginData);
+    const tokenResult = await FrienderApi.login(loginData);
+    setToken(tokenResult);
+    // localStorage.setItem("token", tokenResult);
   }
 
   async function signUp(signUpData) {
@@ -38,12 +45,29 @@ function App() {
     setToken(tokenResult);
   }
 
+  function userLogout() {
+    console.log("LOGOUT");
+    localStorage.removeItem("token");
+    setCurrUser(null);
+    setToken(null);
+  }
+
+  if (token && !currUser) {
+    return (
+      <div>
+        Loading...
+      </div>
+    )
+  }
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <RoutesList login={login} signUp={signUp}/>
-      </BrowserRouter>
+      <userInfoContext.Provider value={currUser}>
+        <BrowserRouter>
+          <NavBar userLogout={userLogout}/>
+          <RoutesList login={login} signUp={signUp}/>
+        </BrowserRouter>
+      </userInfoContext.Provider>
     </div>
   );
 }

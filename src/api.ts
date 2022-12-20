@@ -14,10 +14,10 @@ class FrienderApi {
   // Remember, the backend needs to be authorized with a token
   // We're providing a token you can use to interact with the backend API
   // DON'T MODIFY THIS TOKEN
-  static token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+  static token = '';
+    // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+    // "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+    // "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
   static async request(
     endpoint: string,
@@ -69,6 +69,12 @@ class FrienderApi {
     return res.user;
   }
 
+  /** Login */
+  static async login(data) {
+    const res = await this.request("auth/token", data, "post");
+    return res.token;
+  }
+
   /** Get list of all companies.
    * filters - object, like { nameLike: string }
   */
@@ -90,11 +96,6 @@ class FrienderApi {
   // }
 
 
-  // /** Login */
-  // static async login(data) {
-  //   const res = await this.request("auth/token", data, "post");
-  //   return res.token;
-  // }
 
   // /** Edit profile */
   // static async editProfile(username, data) {
