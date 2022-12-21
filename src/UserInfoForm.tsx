@@ -32,13 +32,17 @@ function UserInfoForm({updateUserInfo}) {
         e.preventDefault();
         const copy = {...formData};
         delete copy["email"];
-        await updateUserInfo(copy);
-        navigate('/profile');
+        try {
+          await updateUserInfo(copy);
+          navigate('/profile');
+        } catch(err) {
+          setErrors([err]);
+        }
     }
 
     return (
         <Form className="SignUpForm container" >
-          <Form.Text as="h1" className="SignUpForm-title mt-3">Sign Up</Form.Text>
+          <Form.Text as="h1" className="SignUpForm-title mt-3">Edit User</Form.Text>
           <Form.Group>
             <Form.Label>Email:</Form.Label>
             <Form.Control

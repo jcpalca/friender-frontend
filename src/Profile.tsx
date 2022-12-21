@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import userInfoContext from './userInfoContext';
 // import Pictures from "./Pictures";
 import UserInfo from "./UserInfo";
-// import Hobbies from "./Hobbies";
+import Hobbies from "./Hobbies";
 // import Interests from "./Interests";
 
 
@@ -17,7 +17,7 @@ function Profile() {
         <div>
             {/* <Pictures /> */}
             <UserInfo currUser={currUser}/>
-            {/* <Hobbies hobbies={currUser.hobbies}/> */}
+            <Hobbies hobbies={currUser.hobbies}/>
             {/* <Interests interests={currUser.interests}/> */}
         </div>
     )

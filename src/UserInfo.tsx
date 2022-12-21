@@ -12,7 +12,7 @@ function UserInfo({currUser}) {
         <div>
             <h3>{currUser.firstName} {currUser.lastName}</h3>
             <p>Zip: {currUser.zip}</p>
-            <button onClick={editUser}>Edit</button>
+            <button onClick={editUser}>Edit User</button>
         </div>
     )
 }
