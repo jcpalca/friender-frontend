@@ -17,12 +17,13 @@ function HobbyForm() {
     setFormData(newFormData);
   }
 
-  function addHobby() {
+  function addHobby(e) {
+    e.preventDefault();
     setFormData(formData => ([...formData, ""]));
   }
 
-  function removeHobby(idx) {
-    console.log(idx);
+  function removeHobby(e, idx) {
+    e.preventDefault();
     let newFormData = [...formData];
     newFormData.splice(idx, 1);
     setFormData(newFormData);
@@ -47,10 +48,10 @@ function HobbyForm() {
                   onChange={e => handleChange(e, idx)}
                   required
                 />
-                <button onClick={() => removeHobby(idx)}>Remove</button>
+                <button onClick={e => removeHobby(e, idx)}>Remove</button>
               </Form.Group>
             ))}
-            <button onClick={() => addHobby()}>Add</button>
+            <button onClick={e => addHobby(e)}>Add</button>
           </Form>
         );
       }
