@@ -60,8 +60,18 @@ function App() {
     setCurrUser(u => ({
       ...u,
       hobbies: userHobbies
-    }))
+    }));
   }
+
+  async function updateInterests(updatedInterests) {
+    console.log("UPDATE INTERESTS", updatedInterests);
+    const userInterests = await FrienderApi.editInterests(currUser.id, updatedInterests);
+    setCurrUser(u => ({
+      ...u,
+      interests: userInterests
+    }));
+  }
+
   function userLogout() {
     console.log("LOGOUT");
     localStorage.removeItem("token");
@@ -87,6 +97,7 @@ function App() {
             signUp={signUp}
             updateUserInfo={updateUserInfo}
             updateHobbies={updateHobbies}
+            updateInterests={updateInterests}
           />
         </BrowserRouter>
       </userInfoContext.Provider>

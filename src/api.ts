@@ -87,6 +87,12 @@ class FrienderApi {
     return res.hobbies;
   }
 
+  /** Edit interests */
+  static async editInterests(id, data) {
+    const res = await this.request(`users/${id}/interests`, data, "put");
+    return res.interests;
+  }
+
   /** Get list of all companies.
    * filters - object, like { nameLike: string }
   */

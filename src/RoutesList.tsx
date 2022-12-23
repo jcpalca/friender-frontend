@@ -10,7 +10,19 @@ import AddPhotoForm from "./AddPhotoForm";
 import UserInfoForm from "./UserInfoForm";
 import Profile from "./Profile";
 
-function RoutesList({ login, signUp, updateUserInfo, updateHobbies }: {login: any, signUp: any, updateUserInfo: any, updateHobbies: any}) {
+function RoutesList(
+  {
+    login,
+    signUp,
+    updateUserInfo,
+    updateHobbies,
+    updateInterests }:{
+      login: any,
+      signUp: any,
+      updateUserInfo: any,
+      updateHobbies: any,
+      updateInterests: any,
+    }) {
   console.log("RoutesList");
 
   return (
@@ -24,7 +36,7 @@ function RoutesList({ login, signUp, updateUserInfo, updateHobbies }: {login: an
       <Route path="/edit/user" element={<UserInfoForm updateUserInfo={updateUserInfo}/>} />
       <Route path="/edit/pictures" element={<AddPhotoForm />} />
       <Route path="/edit/hobbies" element={<HobbyForm updateHobbies={updateHobbies}/>} />
-      <Route path="/edit/interests" element={<InterestForm />} />
+      <Route path="/edit/interests" element={<InterestForm updateInterests={updateInterests}/>} />
 
       {/* <Route path="/hobby" element={<HobbyForm />} />
       <Route path="/interest" element={<InterestForm />} /> */}

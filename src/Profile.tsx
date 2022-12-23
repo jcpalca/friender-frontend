@@ -3,7 +3,7 @@ import userInfoContext from './userInfoContext';
 // import Pictures from "./Pictures";
 import UserInfo from "./UserInfo";
 import Hobbies from "./Hobbies";
-// import Interests from "./Interests";
+import Interests from "./Interests";
 
 
 function Profile() {
@@ -18,7 +18,7 @@ function Profile() {
             {/* <Pictures /> */}
             <UserInfo currUser={currUser}/>
             <Hobbies hobbies={currUser.hobbies}/>
-            {/* <Interests interests={currUser.interests}/> */}
+            <Interests interests={currUser.interests}/>
         </div>
     )
 }
