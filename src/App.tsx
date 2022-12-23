@@ -52,7 +52,15 @@ function App() {
       ...u,
       ...userInfo
     }));
+  }
 
+  async function updateHobbies(updatedHobbies) {
+    console.log('UPDATE HOBBIES', updatedHobbies);
+    const userHobbies = await FrienderApi.editHobbies(currUser.id, updatedHobbies);
+    setCurrUser(u => ({
+      ...u,
+      hobbies: userHobbies
+    }))
   }
   function userLogout() {
     console.log("LOGOUT");
@@ -74,7 +82,12 @@ function App() {
       <userInfoContext.Provider value={currUser}>
         <BrowserRouter>
           <NavBar userLogout={userLogout}/>
-          <RoutesList login={login} signUp={signUp} updateUserInfo={updateUserInfo}/>
+          <RoutesList
+            login={login}
+            signUp={signUp}
+            updateUserInfo={updateUserInfo}
+            updateHobbies={updateHobbies}
+          />
         </BrowserRouter>
       </userInfoContext.Provider>
     </div>

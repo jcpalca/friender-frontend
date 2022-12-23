@@ -1,11 +1,13 @@
 import React, {useContext, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Form";
 import MyAlert from "./MyAlert";
 import userInfoContext from './userInfoContext';
 
-function HobbyForm() {
+function HobbyForm({updateHobbies}) {
   const currUser = useContext(userInfoContext);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState([...currUser.hobbies]);
 
@@ -31,7 +33,8 @@ function HobbyForm() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    //
+    updateHobbies(formData);
+    navigate('/profile')
   }
 
   //TODO: generate new input forms and delte input forms from buttons
@@ -52,6 +55,7 @@ function HobbyForm() {
               </Form.Group>
             ))}
             <button onClick={e => addHobby(e)}>Add</button>
+            <button onClick={handleSubmit}>Update</button>
           </Form>
         );
       }
